@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { Loader2Icon } from "lucide-react";
 import { Input } from "./ui/input";
 import { throttle } from "lodash";
-import useChatStore from "@/app/hooks/useChatStore";
+import useChatStore from "@/app/stores/useChatStore";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
@@ -79,7 +79,9 @@ export default function PullModelForm() {
     } catch (error) {
       toast.error(
         `Error: ${
-          error instanceof Error ? error.message : "عدم موفقیت در دانلود سخنگوی جدید"
+          error instanceof Error
+            ? error.message
+            : "عدم موفقیت در دانلود سخنگوی جدید"
         }`
       );
     } finally {
@@ -158,10 +160,10 @@ export default function PullModelForm() {
                   href="https://ollama.com/library"
                   target="_blank"
                   className="text-blue-500 underline"
-                  >
+                >
                   کتابخانه
                 </a>{" "}
-                  را بررسی کنید{" "}
+                را بررسی کنید{" "}
               </p>
               <FormMessage />
               <div className="space-y-2 w-full">

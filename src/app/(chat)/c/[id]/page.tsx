@@ -3,7 +3,7 @@
 import { ChatLayout } from "@/components/chat/chat-layout";
 import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
-import useChatStore from "@/app/hooks/useChatStore";
+import useChatStore from "@/app/stores/useChatStore";
 
 export default function Page({ params }: { params: { id: string } }) {
   const id = params.id;

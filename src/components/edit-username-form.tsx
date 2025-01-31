@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import React from "react";
 import { ModeToggle } from "./mode-toggle";
 import { toast } from "sonner";
-import useChatStore from "@/app/hooks/useChatStore";
+import useChatStore from "@/app/stores/useChatStore";
 
 const formSchema = z.object({
   username: z.string().min(2, {

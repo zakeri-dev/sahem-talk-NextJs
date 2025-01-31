@@ -10,7 +10,7 @@ import { Message, useChat } from "ai/react";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
-import useChatStore from "@/app/hooks/useChatStore";
+import useChatStore from "@/app/stores/useChatStore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -127,7 +127,7 @@ export default function Chat({ initialMessages, id, isMobile }: ChatProps) {
       {messages.length === 0 ? (
         <div className="flex flex-col h-full w-full items-center gap-4 justify-center">
           <Image
-            src="/hodhod.png"
+            src="/icon-robot.svg"
             alt="AI"
             width={40}
             height={40}

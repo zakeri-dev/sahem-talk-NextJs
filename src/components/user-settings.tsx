@@ -27,7 +27,7 @@ import { set } from "zod";
 import UsernameForm from "./username-form";
 import EditUsernameForm from "./edit-username-form";
 import PullModel from "./pull-model";
-import useChatStore from "@/app/hooks/useChatStore";
+import useChatStore from "@/app/stores/useChatStore";
 
 export default function UserSettings() {
   const [open, setOpen] = useState(false);
@@ -59,9 +59,9 @@ export default function UserSettings() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-48 p-2">
-        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+        {/* <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
           <PullModel />
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <Dialog>
           <DialogTrigger className="w-full ">
             <DropdownMenuItem onSelect={(e) => e.preventDefault()}>

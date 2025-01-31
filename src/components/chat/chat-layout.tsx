@@ -21,35 +21,7 @@ interface ChatLayoutProps {
 
 type MergedProps = ChatLayoutProps & ChatProps;
 
-// const IRANSansX = localFont({
-//   src: [
-//     {
-//       path: "../../assets/fonts/Woff2/IRANSansXFaNum-Regular.woff2",
-//       weight: "400",
-//       style: "normal",
-//     },
-//     {
-//       path: "../../assets/fonts/Woff2/IRANSansXFaNum-Medium.woff2",
-//       weight: "500",
-//       style: "normal",
-//     },
-//     {
-//       path: "../../assets/fonts/Woff2/IRANSansXFaNum-DemiBold.woff2",
-//       weight: "600",
-//       style: "normal",
-//     },
-//     {
-//       path: "../../assets/fonts/Woff2/IRANSansXFaNum-Bold.woff2",
-//       weight: "700",
-//       style: "normal",
-//     },
-//     {
-//       path: "../../assets/fonts/Woff2/IRANSansXFaNum-ExtraBold.woff2",
-//       weight: "800",
-//       style: "normal",
-//     },
-//   ],
-// });
+
 
 export function ChatLayout({
   defaultLayout = [30, 160],

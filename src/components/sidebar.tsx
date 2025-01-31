@@ -27,7 +27,7 @@ import {
 } from "./ui/dropdown-menu";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
-import useChatStore from "@/app/hooks/useChatStore";
+import useChatStore from "@/app/stores/useChatStore";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -69,7 +69,7 @@ export function Sidebar({
           <div className="flex gap-3 items-center ">
             {!isCollapsed && !isMobile && (
               <Image
-                src="/hodhod.png"
+                src="/icon-robot.svg"
                 alt="AI"
                 width={28}
                 height={28}

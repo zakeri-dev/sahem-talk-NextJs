@@ -11,7 +11,7 @@ import {
 import UsernameForm from "@/components/username-form";
 import { generateUUID } from "@/lib/utils";
 import React from "react";
-import useChatStore from "../hooks/useChatStore";
+import useChatStore from "../stores/useChatStore";
 
 export default function Home() {
   const id = generateUUID();
@@ -39,9 +39,7 @@ export default function Home() {
         <DialogContent className="flex flex-col space-y-4">
           <DialogHeader className="space-y-2">
             <DialogTitle>به ساهم تاک خوش امدید!</DialogTitle>
-            <DialogDescription>
-              نام خود را وارد کنید
-            </DialogDescription>
+            <DialogDescription>نام خود را وارد کنید</DialogDescription>
             <UsernameForm setOpen={setOpen} />
           </DialogHeader>
         </DialogContent>

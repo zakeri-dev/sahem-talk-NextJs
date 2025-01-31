@@ -20,7 +20,7 @@ import { CaretSortIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Sidebar } from "../sidebar";
 import { Message } from "ai/react";
 import { getSelectedModel } from "@/lib/model-helper";
-import useChatStore from "@/app/hooks/useChatStore";
+import useChatStore from "@/app/stores/useChatStore";
 
 interface ChatTopbarProps {
   isLoading: boolean;
@@ -44,6 +44,10 @@ export default function ChatTopbar({
   useEffect(() => {
     const fetchModels = async () => {
       const fetchedModels = await fetch("/api/tags");
+      if (!fetchedModels.ok) {
+        console.error("Failed to fetch models");
+        return;
+      }
       const json = await fetchedModels.json();
       const apiModels = json.models.map((model: any) => model.name);
       setModels([...apiModels]);

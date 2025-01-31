@@ -14,9 +14,9 @@ import {
   StopIcon,
 } from "@radix-ui/react-icons";
 import { Mic, SendHorizonal } from "lucide-react";
-import useSpeechToText from "@/app/hooks/useSpeechRecognition";
+import useSpeechToText from "@/app/hooks/speeching/google/useSpeechRecognition";
 import MultiImagePicker from "../image-embedder";
-import useChatStore from "@/app/hooks/useChatStore";
+import useChatStore from "@/app/stores/useChatStore";
 import Image from "next/image";
 import { ChatRequestOptions, Message } from "ai";
 import { ChatInput } from "../ui/chat/chat-input";
@@ -81,7 +81,7 @@ export default function ChatBottombar({
       <AnimatePresence initial={false}>
         <form
           onSubmit={handleSubmit}
-          className="w-full items-center flex flex-col  bg-accent dark:bg-card rounded-lg "
+          className="w-full items-center flex   bg-accent dark:bg-card rounded-lg "
         >
           <ChatInput
             value={isListening ? (transcript.length ? transcript : "") : input}
@@ -89,17 +89,20 @@ export default function ChatBottombar({
             onKeyDown={handleKeyPress}
             onChange={handleInputChange}
             name="message"
-            placeholder={!isListening ? "لطفا متن خودتون رو بنویسید" : "در حال شنیدن"}
-            className="max-h-40 px-6 pt-6 border-0 shadow-none bg-accent rounded-lg text-right text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed dark:bg-card"
+            placeholder={
+              !isListening ? "لطفا متن خودتون رو بنویسید" : "در حال شنیدن"
+            }
+            className="max-h-40 grow w-full px-6 pt-6 border-0 shadow-none bg-accent rounded-lg text-right text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed dark:bg-card"
           />
 
-          <div className="flex w-full items-center p-2">
+          <div className="flex items-center p-2">
             {isLoading ? (
               // Loading state
-              <div className="flex w-full justify-between">
-                <MultiImagePicker disabled onImagesPick={setBase64Images} />
+              <div className="flex min-w-10 justify-between">
+                {/* <MultiImagePicker disabled onImagesPick={setBase64Images} /> */}
+                <div></div>
                 <div>
-                  <Button
+                  {/* <Button
                     className="shrink-0 rounded-full"
                     variant="ghost"
                     size="icon"
@@ -107,7 +110,7 @@ export default function ChatBottombar({
                     disabled
                   >
                     <Mic className="w-5 h-5" />
-                  </Button>
+                  </Button> */}
                   <Button
                     className="shrink-0 rounded-full"
                     variant="ghost"
@@ -124,11 +127,12 @@ export default function ChatBottombar({
               </div>
             ) : (
               // Default state
-              <div className="flex w-full justify-between">
-                <MultiImagePicker
+              <div className="flex min-w-20 justify-between">
+                {/* <MultiImagePicker
                   disabled={isLoading}
                   onImagesPick={setBase64Images}
-                />
+                /> */}
+                <div></div>
                 <div>
                   {/* Microphone button with animation when listening */}
                   <Button
