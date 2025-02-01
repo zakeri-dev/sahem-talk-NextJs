@@ -1,6 +1,6 @@
 import { CoreMessage, generateId, Message } from 'ai'
 import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 interface ChatSession {
   messages: Message[]
@@ -33,97 +33,85 @@ interface Actions {
 }
 
 const useChatStore = create<State & Actions>()(
-  devtools(
-    persist(
-      (set, get) => ({
-        base64Images: null,
-        chats: {},
-        currentChatId: null,
-        selectedModel: null,
-        userName: 'ناشناس',
-        isDownloading: false,
-        downloadProgress: 0,
-        downloadingModel: null,
+  persist(
+    (set, get) => ({
+      base64Images: null,
+      chats: {},
+      currentChatId: null,
+      selectedModel: null,
+      userName: 'ناشناس',
+      isDownloading: false,
+      downloadProgress: 0,
+      downloadingModel: null,
 
-        setBase64Images: base64Images => set({ base64Images }),
-        setUserName: userName => set({ userName }),
+      setBase64Images: base64Images => set({ base64Images }),
+      setUserName: userName => set({ userName }),
 
-        setCurrentChatId: chatId => set({ currentChatId: chatId }),
-        setSelectedModel: selectedModel => set({ selectedModel }),
-        getChatById: chatId => {
-          const state = get()
-          return state.chats[chatId]
-        },
-        getMessagesById: chatId => {
-          const state = get()
-          return state.chats[chatId]?.messages || []
-        },
-        saveMessages: (chatId, messages) => {
-          set(state => {
-            const existingChat = state.chats[chatId]
+      setCurrentChatId: chatId => set({ currentChatId: chatId }),
+      setSelectedModel: selectedModel => set({ selectedModel }),
+      getChatById: chatId => {
+        const state = get()
+        return state.chats[chatId]
+      },
+      getMessagesById: chatId => {
+        const state = get()
+        return state.chats[chatId]?.messages || []
+      },
+      saveMessages: (chatId, messages) => {
+        set(state => {
+          const existingChat = state.chats[chatId]
 
+          return {
+            chats: {
+              ...state.chats,
+              [chatId]: {
+                messages: [...messages],
+                createdAt: existingChat?.createdAt || new Date().toISOString()
+              }
+            }
+          }
+        })
+      },
+      handleDelete: (chatId, messageId) => {
+        set(state => {
+          const chat = state.chats[chatId]
+          if (!chat) return state
+
+          // If messageId is provided, delete specific message
+          if (messageId) {
+            const updatedMessages = chat.messages.filter(message => message.id !== messageId)
             return {
               chats: {
                 ...state.chats,
                 [chatId]: {
-                  messages: [...messages],
-                  createdAt: existingChat?.createdAt || new Date().toISOString()
+                  ...chat,
+                  messages: updatedMessages
                 }
               }
             }
-          })
-        },
-        handleDelete: (chatId, messageId) => {
-          set(state => {
-            const chat = state.chats[chatId]
-            if (!chat) return state
+          }
 
-            // If messageId is provided, delete specific message
-            if (messageId) {
-              const updatedMessages = chat.messages.filter(message => message.id !== messageId)
-              return {
-                chats: {
-                  ...state.chats,
-                  [chatId]: {
-                    ...chat,
-                    messages: updatedMessages
-                  }
-                }
-              }
-            }
-
-            // If no messageId, delete the entire chat
-            const { [chatId]: _, ...remainingChats } = state.chats
-            return {
-              chats: remainingChats
-            }
-          })
-        },
-
-        startDownload: modelName =>
-          set({
-            isDownloading: true,
-            downloadingModel: modelName,
-            downloadProgress: 0
-          }),
-        stopDownload: () =>
-          set({
-            isDownloading: false,
-            downloadingModel: null,
-            downloadProgress: 0
-          }),
-        setDownloadProgress: progress => set({ downloadProgress: progress })
-      }),
-      {
-        name: 'nextjs-ollama-ui-state',
-        partialize: state => ({
-          chats: state.chats,
-          currentChatId: state.currentChatId,
-          selectedModel: state.selectedModel,
-          userName: state.userName
+          // If no messageId, delete the entire chat
+          const { [chatId]: _, ...remainingChats } = state.chats
+          return {
+            chats: remainingChats
+          }
         })
-      }
-    )
+      },
+
+      startDownload: modelName => set({ isDownloading: true, downloadingModel: modelName, downloadProgress: 0 }),
+      stopDownload: () => set({ isDownloading: false, downloadingModel: null, downloadProgress: 0 }),
+      setDownloadProgress: progress => set({ downloadProgress: progress })
+    }),
+    {
+      name: 'nextjs-ollama-ui-state',
+      partialize: state => ({
+        chats: state.chats,
+        currentChatId: state.currentChatId,
+        selectedModel: state.selectedModel,
+        userName: state.userName
+      })
+    }
   )
 )
 

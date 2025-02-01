@@ -163,10 +163,10 @@ export default function Index() {
             <SoroushBio />
           </div>
         </div>
-        <div className='col-span-2 flex flex-col justify-center lg:bg-accent lg:dark:bg-secondary p-1 rounded-md pb-10 gap-2 text-sm text-center  overflow-y-scroll'>
+        <div className='col-span-2 flex flex-col lg:bg-accent lg:dark:bg-secondary p-1 rounded-md py-5 gap-2 text-sm text-center  overflow-y-scroll'>
           {Object.entries(agentsInfo).map(
             ([key, agent]: [string, (typeof agentsInfo)[keyof typeof agentsInfo]], index: number) => (
-              <div key={index} onClick={() => handlePersona(agent.name, agent.model, agent.prompts)}>
+              <div className='cursor-pointer' key={index} onClick={() => handlePersona(agent.name, agent.model, agent.prompts)}>
                 <div className='aspect-square border'>s</div>
                 <span className='whitespace-nowrap'>{agent.name}</span>
               </div>
