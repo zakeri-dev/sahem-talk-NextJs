@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     model: ollama(selectedModel),
     messages: [
       { role: "system", content: "Speek in persian" },
-      { role: "system", content: "You are a helpful developer assistant." },
+      // { role: "system", content: "You are a helpful developer assistant." },
       ...convertToCoreMessages(initialMessages),
       { role: "user", content: messageContent },
     ],
