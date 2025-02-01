@@ -3,12 +3,10 @@ import { create, StateCreator } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
 type AiPersona = {
-  selectedAgent: string
-  model: string
-  messages?: CoreMessage[] | undefined
-  addSelectedAgent: () => void
-  addModel: () => void
-  addMessages: () => void
+  persona: { selectedAgent: string; model: string; messages?: CoreMessage[] | undefined }
+  updateSelectedAgent: (selectedAgent: string) => void
+  updateModel: (model: string) => void
+  updateMessages: () => void
 }
 
 type FishSlice = {
@@ -19,16 +17,21 @@ type FishSlice = {
 type OptionsStore = AiPersona & FishSlice
 
 const createAiPersonaSlice: StateCreator<OptionsStore, [['zustand/devtools', never]], [], AiPersona> = set => ({
-  selectedAgent: 'soroush',
-  model: 'nemotron:latest',
-  messages: [
-    { role: 'system', content: 'Speek in persian' },
-    { role: 'system', content: 'Speek in persian' },
-    { role: 'system', content: 'Speek in persian' }
-  ],
-  addSelectedAgent: () => set(state => ({ selectedAgent: state.selectedAgent }), undefined, 'options:Agent/addAgent'),
-  addModel: () => set(state => ({ model: state.model }), undefined, 'options:Model/addModel'),
-  addMessages: () => set(state => ({ messages: state.messages }), undefined, 'options:Messages/addMessages')
+  persona: {
+    selectedAgent: 'soroush',
+    model: 'nemotron:latest',
+    messages: [
+      { role: 'system', content: 'Speak in Persian' },
+      { role: 'system', content: 'Speak in Persian' },
+      { role: 'system', content: 'Speak in Persian' }
+    ]
+  },
+  updateSelectedAgent: (selectedAgent: string) =>
+    set(state => ({ persona: { ...state.persona, selectedAgent } }), undefined, 'options:Agent/addAgent'),
+  updateModel: (model: string) =>
+    set(state => ({ persona: { ...state.persona, model } }), undefined, 'options:Model/addModel'),
+  updateMessages: (messages?: CoreMessage[] | undefined) =>
+    set(state => ({ persona: { ...state.persona, messages } }), undefined, 'options:Messages/addMessages')
 })
 
 const createFishSlice: StateCreator<OptionsStore, [['zustand/devtools', never]], [], FishSlice> = set => ({
@@ -46,11 +49,7 @@ const useOptionsStore = create<any>()(
       {
         name: 'option-store',
         partialize: state => ({
-          selectedPersona: {
-            selectedAgent: state.selectedAgent,
-            model: state.model,
-            messages: state.messages
-          },
+          selectedPersona: state.persona,
           fishes: state.fishes
         })
       }

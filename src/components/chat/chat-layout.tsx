@@ -19,7 +19,7 @@ interface ChatLayoutProps {
 type MergedProps = ChatLayoutProps & ChatProps
 
 export function ChatLayout({
-  defaultLayout = [20, 60, 20], // Adjusted to sum up to 100%
+  defaultLayout = [20, 50, 30], // Adjusted to sum up to 100%
   defaultCollapsed = false,
   navCollapsedSize,
   initialMessages,
@@ -68,7 +68,7 @@ export function ChatLayout({
           document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(false)}`
         }}
         className={cn(
-          isCollapsed ? 'min-w-[50px] md:min-w-[150px] transition-all duration-300 ease-in-out' : 'hidden md:block'
+          isCollapsed ? 'min-w-[50px] md:min-w-[250px] transition-all duration-300 ease-in-out' : 'hidden md:block'
         )}
       >
         <Sidebar isCollapsed={isCollapsed || isMobile} messages={initialMessages} isMobile={isMobile} chatId={id} />
@@ -82,8 +82,8 @@ export function ChatLayout({
         defaultSize={defaultLayout[2]}
         collapsedSize={navCollapsedSize}
         collapsible={true}
-        minSize={isMobile ? 0 : 20}
-        maxSize={isMobile ? 0 : 30}
+        minSize={isMobile ? 0 : 30}
+        maxSize={isMobile ? 0 : 40}
         onCollapse={() => {
           setIsCollapsed(true)
           document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(true)}`
@@ -93,7 +93,7 @@ export function ChatLayout({
           document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(false)}`
         }}
         className={cn(
-          isCollapsed ? 'min-w-[50px] md:min-w-[300px] transition-all duration-300 ease-in-out' : 'hidden md:block'
+          isCollapsed ? 'min-w-[50px] md:min-w-[30%] transition-all duration-300 ease-in-out' : 'hidden md:block'
         )}
       >
         <OptionsSide />
