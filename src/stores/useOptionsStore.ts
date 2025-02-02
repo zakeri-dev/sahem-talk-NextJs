@@ -32,6 +32,7 @@ const createAiPersonaSlice: StateCreator<OptionsStore, [['zustand/devtools', nev
     model: '',
     wellcome: '',
     avatar: null,
+    avatarq: null,
     messages: undefined,
     agentBio: null
   },
@@ -69,7 +70,7 @@ const useOptionsStore = create<any>()(
       {
         name: 'option-store',
         partialize: state => ({
-          selectedPersona: state.persona,
+          selectedPersona: state.selectedPersona,
           fishes: state.fishes
         })
       }

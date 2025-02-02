@@ -49,6 +49,7 @@ export default function Chat({ initialMessages, id, isMobile }: ChatProps) {
   const base64Images = useChatStore(state => state.base64Images)
   const setBase64Images = useChatStore(state => state.setBase64Images)
   const selectedModel = useChatStore(state => state.selectedModel)
+  const setSelectedModel = useChatStore(state => state.setSelectedModel)
   const saveMessages = useChatStore(state => state.saveMessages)
   const getMessagesById = useChatStore(state => state.getMessagesById)
   const router = useRouter()
@@ -76,6 +77,16 @@ export default function Chat({ initialMessages, id, isMobile }: ChatProps) {
           url: image
         }))
       : []
+
+    if (selectedPersona.model) {
+      setSelectedModel(selectedPersona.model)
+    }
+
+    if (!selectedModel) {
+      toast.error('Model is not selected!')
+      setLoadingSubmit(false)
+      return
+    }
 
     const requestOptions: ChatRequestOptions = {
       body: {
@@ -117,11 +128,12 @@ export default function Chat({ initialMessages, id, isMobile }: ChatProps) {
       {messages.length === 0 ? (
         <div className='flex flex-col h-full w-full items-center gap-4 justify-center'>
           <Image
-            src={selectedPersona.avatar ? selectedPersona.avatar : `/icon-robot.svg`}
+            src={selectedPersona.avatar ? selectedPersona.avatar : `/images/agents/soroush.webp`}
             alt='AI'
-            width={40}
-            height={40}
-            className='h-16 w-14 object-contain '
+            width={100}
+            height={100}
+            unoptimized
+            className='aspect-square w-64 xl:w-72 object-contain '
           />
           <p className='text-center text-base text-muted-foreground'>
             {selectedPersona.wellcome
