@@ -1,6 +1,7 @@
 import useOptionsStore, { AiPersona } from '@/stores/useOptionsStore'
 import React from 'react'
 import SoroushBio from './agents/soroush/Soroush'
+import { useRouter } from 'next/navigation'
 
 const agentsInfo = [
   {
@@ -9,11 +10,7 @@ const agentsInfo = [
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
     avatar: '/images/personas/Elderly Scientist.png',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Persian' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -23,11 +20,7 @@ const agentsInfo = [
     avatar: '',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Chinees' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -37,11 +30,7 @@ const agentsInfo = [
     avatar: '',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in English' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -51,11 +40,7 @@ const agentsInfo = [
     avatar: '',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Russia' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -65,11 +50,7 @@ const agentsInfo = [
     avatar: '',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Persian' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -79,11 +60,7 @@ const agentsInfo = [
     avatar: '',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Persian' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -92,11 +69,7 @@ const agentsInfo = [
     name: 'بینش یار',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Persian' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -105,11 +78,7 @@ const agentsInfo = [
     name: 'نکته یار',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Persian' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -119,11 +88,7 @@ const agentsInfo = [
     avatar: '',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Persian' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -133,11 +98,7 @@ const agentsInfo = [
     avatar: '',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Persian' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   },
@@ -147,23 +108,21 @@ const agentsInfo = [
     avatar: '',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
-    messages: [
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' },
-      { role: 'system', content: 'Speak in Persian' }
-    ],
+    messages: [{ role: 'system', content: 'Speak in Persian' }],
     agentBio: <SoroushBio />
     // agentConfig: <SoroushConfig/>
   }
 ]
 
 export default function Index() {
+  const router = useRouter()
   const persona = useOptionsStore(state => state.persona)
   const updatePersona = useOptionsStore(state => state.updatePersona)
   const handlePersona = (agent: AiPersona) => {
     // console.log(agent)
     // console.log(persona)
     updatePersona(agent)
+    router.push('/')
     // console.log(persona)
   }
   return (

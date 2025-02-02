@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
   const initialMessages = messages.slice(0, -1)
   const currentMessage = messages[messages.length - 1]
-  console.log('systemPrompt', systemPrompt)
+  // console.log('systemPrompt', systemPrompt)
 
   const ollama = createOllama({ baseURL: ollamaUrl + '/api' })
 
@@ -29,8 +29,8 @@ export async function POST(req: Request) {
   const result = await streamText({
     model: ollama(selectedModel),
     messages: [
-      { role: 'system', content: 'Speek in persian' },
-      // ...systemPrompt,
+      // { role: 'system', content: 'Speek in persian' },
+      ...(systemPrompt ? systemPrompt : []),
       //i need write another system promp in there with get from request
       ...convertToCoreMessages(initialMessages),
       { role: 'user', content: messageContent }

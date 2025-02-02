@@ -66,7 +66,7 @@ export default function ChatBottombar({
       console.log('Input focused')
     }
   }, [inputRef])
-  // console.log(input)
+  console.log(selectedModel)
   return (
     <div className='px-4 pb-7 flex justify-between w-full items-center relative '>
       <AnimatePresence initial={false}>
