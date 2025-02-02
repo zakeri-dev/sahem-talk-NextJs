@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from 'uuid'
 import useChatStore from '@/stores/useChatStore'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import useOptionsStore from '@/stores/useOptionsStore'
 
 export interface ChatProps {
   id: string
@@ -44,12 +45,52 @@ export default function Chat({ initialMessages, id, isMobile }: ChatProps) {
   })
   const [loadingSubmit, setLoadingSubmit] = React.useState(false)
   const formRef = useRef<HTMLFormElement>(null)
+  const selectedPersona = useOptionsStore(state => state.selectedPersona)
   const base64Images = useChatStore(state => state.base64Images)
   const setBase64Images = useChatStore(state => state.setBase64Images)
   const selectedModel = useChatStore(state => state.selectedModel)
   const saveMessages = useChatStore(state => state.saveMessages)
   const getMessagesById = useChatStore(state => state.getMessagesById)
   const router = useRouter()
+
+  const onSubmitPersona = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    window.history.replaceState({}, '', `/c/${id}`)
+
+    const userMessage: Message = {
+      id: generateId(),
+      role: 'user',
+      content: input
+    }
+
+    setLoadingSubmit(true)
+
+    const attachments: Attachment[] = base64Images
+      ? base64Images.map(image => ({
+          contentType: 'image/base64',
+          url: image
+        }))
+      : []
+
+    const requestOptions: ChatRequestOptions = {
+      body: {
+        selectedModel: selectedPersona.model
+      },
+      ...(base64Images && {
+        data: {
+          images: base64Images
+        },
+        experimental_attachments: attachments
+      })
+    }
+
+    console.log(e, requestOptions)
+    console.log(id, [...messages, userMessage])
+    console.log(null)
+    // handleSubmit(e, requestOptions)
+    // saveMessages(id, [...messages, userMessage])
+    // setBase64Images(null)
+  }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -105,14 +146,38 @@ export default function Chat({ initialMessages, id, isMobile }: ChatProps) {
     setLoadingSubmit(false)
   }
 
+  // console.log(selectedPersona.agent)
+
   return (
     <div className='flex flex-col w-full max-w-3xl h-full'>
       <ChatTopbar isLoading={isLoading} chatId={id} messages={messages} setMessages={setMessages} />
 
-      {messages.length === 0 ? (
+      {selectedPersona.agent ? (
+        <div className='flex flex-col h-full w-full items-center gap-4 justify-center'>
+          <Image
+            src={selectedPersona.avatar}
+            alt='AI'
+            width={100}
+            height={100}
+            unoptimized
+            className='aspect-square w-64 object-contain '
+          />
+          <p className='text-center text-base text-muted-foreground'>{selectedPersona.wellcome}</p>
+          <ChatBottombar
+            input={input}
+            handleInputChange={handleInputChange}
+            handleSubmit={onSubmitPersona}
+            isLoading={isLoading}
+            stop={handleStop}
+            setInput={setInput}
+          />
+        </div>
+      ) : messages.length === 0 ? (
         <div className='flex flex-col h-full w-full items-center gap-4 justify-center'>
           <Image src='/icon-robot.svg' alt='AI' width={40} height={40} className='h-16 w-14 object-contain ' />
-          <p className='text-center text-base text-muted-foreground'>امروز چطور میتونم به شما کمک کنم؟</p>
+          <p className='text-center text-base text-muted-foreground'>
+            سلام!!! من « دانا » هستم! <br /> چطور میتونم به شما کمک کنم؟
+          </p>
           <ChatBottombar
             input={input}
             handleInputChange={handleInputChange}
