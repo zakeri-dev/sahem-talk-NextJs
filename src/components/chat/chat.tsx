@@ -128,7 +128,7 @@ export default function Chat({ initialMessages, id, isMobile }: ChatProps) {
       {messages.length === 0 ? (
         <div className='flex flex-col h-full w-full items-center gap-4 justify-center'>
           <Image
-            src={selectedPersona.avatar ? selectedPersona.avatar : `/images/agents/soroush.webp`}
+            src={selectedPersona.avatar ? selectedPersona.avatar : `/images/agents/dana.webp`}
             alt='AI'
             width={100}
             height={100}

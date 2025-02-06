@@ -28,7 +28,7 @@ export const agentsInfo = [
         content: 'Make sure you don not have any conversations and just provide the required output'
       }
     ],
-    agentBio: 'df',
+    agentBio: '<p>سلام!!!<br>امیدوارم حال شما خوب باشه!<br>من سروش هستم!<br>وظایفی در قبال متن و نیاز های شما دارم که به زودی خودم هم با خبر میشم.</p>',
     selectedPersona: false,
     updatePersona: () => {}
     // agentConfig: <SoroushConfig/>
@@ -155,8 +155,8 @@ export const agentsInfo = [
   {
     agent: 'porsana',
     name: 'پُرسانا',
-    avatar: '/images/agents/porsana.webp',
-    avatarq: '/images/agents/porsanaq.webp',
+    avatar: '/images/agents/porsana2.webp',
+    avatarq: '/images/agents/porsana2q.webp',
     model: 'nemotron:latest',
     wellcome: 'سلام! متن مورد نظر خودت رو ارسال کن تا برات ویرایش کنم.',
     messages: [{ role: 'system', content: 'Speak in Persian' }],

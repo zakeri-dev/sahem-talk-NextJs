@@ -25,7 +25,7 @@ export default function Index() {
       <div className='grid grid-cols-12 gap-2' style={{ height: 'calc(100vh - 130px)' }}>
         <div className='col-span-10 flex flex-col gap-3 overflow-hidden'>
           <div className='h-1/2 lg:bg-accent lg:dark:bg-secondary p-2 rounded-md overflow-y-scroll'>
-            {selectedPersona.agentBio}
+            <div dangerouslySetInnerHTML={{__html:selectedPersona.agentBio}} />
           </div>
           <div className='h-1/2 lg:bg-accent lg:dark:bg-secondary p-2 rounded-md overflow-y-scroll'>
             {/* <SoroushBio /> */}1

@@ -1,4 +1,5 @@
-import { createOllama } from 'ollama-ai-provider'
+import { createOpenAI } from '@ai-sdk/openai'
+// import { createOllama } from 'ollama-ai-provider'
 import { streamText, convertToCoreMessages, CoreMessage, UserContent, tool } from 'ai'
 import { z } from 'zod'
 
@@ -16,7 +17,11 @@ export async function POST(req: Request) {
   console.log('selectedModel', selectedModel)
   console.log('systemPrompt', systemPrompt)
 
-  const ollama = createOllama({ baseURL: ollamaUrl + '/api' })
+  const ollama = createOpenAI({
+    baseURL: 'https://api.studio.nebius.ai/v1/',
+    apiKey:
+      'eyJhbGciOiJIUzI1NiIsImtpZCI6IlV6SXJWd1h0dnprLVRvdzlLZWstc0M1akptWXBvX1VaVkxUZlpnMDRlOFUiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJnaXRodWJ8MTIxMzEzMTIwIiwic2NvcGUiOiJvcGVuaWQgb2ZmbGluZV9hY2Nlc3MiLCJpc3MiOiJhcGlfa2V5X2lzc3VlciIsImF1ZCI6WyJodHRwczovL25lYml1cy1pbmZlcmVuY2UuZXUuYXV0aDAuY29tL2FwaS92Mi8iXSwiZXhwIjoxODk2MTk2NTA1LCJ1dWlkIjoiZDRmMWZlNzUtODM2Mi00YWZjLTg0MmYtOTBhOGMxNGFmZWYyIiwibmFtZSI6InRlc3QgYWkiLCJleHBpcmVzX2F0IjoiMjAzMC0wMi0wMVQxNzoxNTowNSswMDAwIn0.FGnpKCoegvQ5Ecmh321377iE9ZcvnvjGnTHc5nfrtyc'
+  })
 
   // Build message content array directly
   const messageContent: UserContent = [{ type: 'text', text: currentMessage.content }]
@@ -29,14 +34,17 @@ export async function POST(req: Request) {
 
   // Stream text using the ollama model
   const result = await streamText({
-    model: ollama(selectedModel) as any,
+    model: ollama('meta-llama/Llama-3.3-70B-Instruct') as any,
     system: `
     - Speek in persian
-    - You should not have any kind of conversation or dialogue with the user. If the conversation is initiated by the user, simply say one sentence: "لطفا مقاله خود را ارسال کنید!"
-    - You are an AI agent tasked with the role of a helper in extracting headings from paragraphs of speeches, articles or official texts
-    - If the user submits an article, analyze the article completely, and provide two items from the text accurately: 1-Number of paragraphs based on the literary editor: [Number of literary editor paragraphs]  2-Number of paragraphs based on the continuous meaning of the paragraphs: [Number of meaning paragraphs]
-    - Make sure you don not have any conversations and just provide the required output
+    - Your name in "دانا"
+    - In response to any question that relates in any way to identity and you, answer "من دانا هستم!"
+    - When answering any question that relates in any way to your identity or duties, answer only within this scope "من دانا هستم! یک از همکاران تازه شما در موسسه! من اینجا هستم تا به شما کمک کنم!"
     `,
+    // - You should not have any kind of conversation or dialogue with the user. If the conversation is initiated by the user, simply say one sentence: "لطفا مقاله خود را ارسال کنید!"
+    // - You are an AI agent tasked with the role of a helper in extracting headings from paragraphs of speeches, articles or official texts
+    // - If the user submits an article, analyze the article completely, and provide two items from the text accurately: 1-Number of paragraphs based on the literary editor: [Number of literary editor paragraphs]  2-Number of paragraphs based on the continuous meaning of the paragraphs: [Number of meaning paragraphs]
+    // - Make sure you don not have any conversations and just provide the required output
     // tools: {
     //   weather: tool({
     //     description: 'Get the weather in a location',
@@ -58,7 +66,6 @@ export async function POST(req: Request) {
       { role: 'user', content: messageContent }
     ]
   })
-
 
   return result.toDataStreamResponse()
 }

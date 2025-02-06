@@ -151,7 +151,7 @@ function ChatMessage({ message, isLast, isLoading, reload }: ChatMessageProps) {
     >
       <ChatBubble variant={message.role === "user" ? "sent" : "received"}>
         <ChatBubbleAvatar
-          src={message.role === "assistant" ? "/icon-robot.svg": ""}
+          src={message.role === "assistant" ? "/images/agents/dana.webp": ""}
           width={6}
           height={6}
           className="object-contain "
