@@ -39,7 +39,7 @@ export default function ChatList({
         {loadingSubmit && (
           <ChatBubble variant="received">
             <ChatBubbleAvatar
-              src="/icon-robot.svg"
+              src="/images/agents/dana.webp"
               width={6}
               height={6}
               className="object-contain "

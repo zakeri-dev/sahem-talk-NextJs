@@ -77,7 +77,7 @@ export function ChatLayout({
       <ResizablePanel className='h-full w-full flex justify-center' defaultSize={defaultLayout[1]}>
         <Chat id={id} initialMessages={initialMessages} isMobile={isMobile} />
       </ResizablePanel>
-      <ResizableHandle className={cn('hidden md:flex')} withHandle />
+      {/* <ResizableHandle className={cn('hidden md:flex')} withHandle />
       <ResizablePanel
         defaultSize={defaultLayout[2]}
         collapsedSize={navCollapsedSize}
@@ -97,7 +97,7 @@ export function ChatLayout({
         )}
       >
         <OptionsSide />
-      </ResizablePanel>
+      </ResizablePanel> */}
     </ResizablePanelGroup>
   )
 }

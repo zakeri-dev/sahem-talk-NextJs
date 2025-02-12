@@ -14,8 +14,8 @@ export async function POST(req: Request) {
 
   const initialMessages = messages.slice(0, -1)
   const currentMessage = messages[messages.length - 1]
-  console.log('selectedModel', selectedModel)
-  console.log('systemPrompt', systemPrompt)
+  // console.log('selectedModel', selectedModel)
+  // console.log('systemPrompt', systemPrompt)
 
   const ollama = createOpenAI({
     baseURL: 'https://api.studio.nebius.ai/v1/',
@@ -34,13 +34,14 @@ export async function POST(req: Request) {
 
   // Stream text using the ollama model
   const result = await streamText({
-    model: ollama('meta-llama/Llama-3.3-70B-Instruct') as any,
+    model: ollama(selectedModel || 'meta-llama/Llama-3.3-70B-Instruct') as any,
     system: `
     - Speek in persian
     - Your name in "دانا"
-    - In response to any question that relates in any way to identity and you, answer "من دانا هستم!"
-    - When answering any question that relates in any way to your identity or duties, answer only within this scope "من دانا هستم! یک از همکاران تازه شما در موسسه! من اینجا هستم تا به شما کمک کنم!"
+    - You are a collaborator and companion for the user.
     `,
+    // - In response to any question that relates in any way to identity and you, answer "من دانا هستم!"
+    // - When answering any question that relates in any way to your identity or duties, respond in different ways and sentences, focusing only on this text"من دانا هستم! یک از همکاران تازه شما در موسسه! من اینجا هستم تا به شما کمک کنم!"
     // - You should not have any kind of conversation or dialogue with the user. If the conversation is initiated by the user, simply say one sentence: "لطفا مقاله خود را ارسال کنید!"
     // - You are an AI agent tasked with the role of a helper in extracting headings from paragraphs of speeches, articles or official texts
     // - If the user submits an article, analyze the article completely, and provide two items from the text accurately: 1-Number of paragraphs based on the literary editor: [Number of literary editor paragraphs]  2-Number of paragraphs based on the continuous meaning of the paragraphs: [Number of meaning paragraphs]

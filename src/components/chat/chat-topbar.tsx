@@ -19,25 +19,27 @@ interface ChatTopbarProps {
 }
 
 export default function ChatTopbar({ isLoading, chatId, messages, setMessages }: ChatTopbarProps) {
-  const [models, setModels] = React.useState<string[]>([])
+  const [models, setModels] = React.useState<string[]>([
+    'deepseek-ai/DeepSeek-V3','deepseek-ai/DeepSeek-R1','meta-llama/Llama-3.3-70B-Instruct','Qwen/Qwen2.5-72B-Instruct','nvidia/Llama-3.1-Nemotron-70B-Instruct-HF',
+  ])
   const [open, setOpen] = React.useState(false)
   const [sheetOpen, setSheetOpen] = React.useState(false)
   const selectedModel = useChatStore(state => state.selectedModel)
   const setSelectedModel = useChatStore(state => state.setSelectedModel)
 
-  useEffect(() => {
-    const fetchModels = async () => {
-      const fetchedModels = await fetch('/api/tags')
-      if (!fetchedModels.ok) {
-        console.error('Failed to fetch models')
-        return
-      }
-      const json = await fetchedModels.json()
-      const apiModels = json.models.map((model: any) => model.name)
-      setModels([...apiModels])
-    }
-    fetchModels()
-  }, [])
+  // useEffect(() => {
+  //   const fetchModels = async () => {
+  //     const fetchedModels = await fetch('/api/tags')
+  //     if (!fetchedModels.ok) {
+  //       console.error('Failed to fetch models')
+  //       return
+  //     }
+  //     const json = await fetchedModels.json()
+  //     const apiModels = json.models.map((model: any) => model.name)
+  //     setModels([...apiModels])
+  //   }
+  //   fetchModels()
+  // }, [])
 
   const handleModelChange = (model: string) => {
     setSelectedModel(model)

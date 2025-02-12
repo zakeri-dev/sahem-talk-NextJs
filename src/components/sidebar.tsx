@@ -51,7 +51,7 @@ export function Sidebar({ messages, isCollapsed, isMobile, chatId, closeSidebar 
         >
           <div className='flex gap-3 items-center '>
             {!isCollapsed && !isMobile && (
-              <Image src='/icon-robot.svg' alt='AI' width={28} height={28} className=' hidden 2xl:block rounded-full' />
+              <Image src='/images/agents/dana.webp' alt='AI' width={28} height={28} className=' hidden 2xl:block rounded-full' />
             )}
             گفتگوی جدید
           </div>
