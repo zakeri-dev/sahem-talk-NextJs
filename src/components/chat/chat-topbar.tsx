@@ -19,9 +19,7 @@ interface ChatTopbarProps {
 }
 
 export default function ChatTopbar({ isLoading, chatId, messages, setMessages }: ChatTopbarProps) {
-  const [models, setModels] = React.useState<string[]>([
-    'deepseek-ai/DeepSeek-V3','deepseek-ai/DeepSeek-R1','meta-llama/Llama-3.3-70B-Instruct','Qwen/Qwen2.5-72B-Instruct','nvidia/Llama-3.1-Nemotron-70B-Instruct-HF',
-  ])
+  const [models, setModels] = React.useState<string[]>(['deepseek-v3:671b', 'qwen2.5:72b-instruct-fp16'])
   const [open, setOpen] = React.useState(false)
   const [sheetOpen, setSheetOpen] = React.useState(false)
   const selectedModel = useChatStore(state => state.selectedModel)
