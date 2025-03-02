@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang='fa' dir='rtl'>
       <body className={`antialiased tracking-tight ${IRANSansX.className}`}>
-        <ThemeProvider attribute='class' defaultTheme='light'>
+        <ThemeProvider attribute='class' defaultTheme='dark'>
           {children}
           <Toaster />
         </ThemeProvider>

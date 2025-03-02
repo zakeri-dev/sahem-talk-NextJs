@@ -32,6 +32,7 @@ export async function POST(req: Request) {
     model: ollama(selectedModel) as any,
     system: `
     - You are helpful assident
+    - Your name is "دانا"
     - Speek in persian
     `,
     // - You should not have any kind of conversation or dialogue with the user. If the conversation is initiated by the user, simply say one sentence: "لطفا مقاله خود را ارسال کنید!"

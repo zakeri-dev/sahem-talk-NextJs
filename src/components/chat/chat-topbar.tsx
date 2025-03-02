@@ -19,25 +19,29 @@ interface ChatTopbarProps {
 }
 
 export default function ChatTopbar({ isLoading, chatId, messages, setMessages }: ChatTopbarProps) {
-  const [models, setModels] = React.useState<string[]>([process.env.NEXT_PUBLIC_OLLAMA_MODELS1,process.env.NEXT_PUBLIC_OLLAMA_MODELS2])
+  const [models, setModels] = React.useState<string[]>([
+    process.env.NEXT_PUBLIC_OLLAMA_MODELS1,
+    process.env.NEXT_PUBLIC_OLLAMA_MODELS2
+  ])
   const [open, setOpen] = React.useState(false)
   const [sheetOpen, setSheetOpen] = React.useState(false)
   const selectedModel = useChatStore(state => state.selectedModel)
   const setSelectedModel = useChatStore(state => state.setSelectedModel)
 
-  // useEffect(() => {
-  //   const fetchModels = async () => {
-  //     const fetchedModels = await fetch('/api/tags')
-  //     if (!fetchedModels.ok) {
-  //       console.error('Failed to fetch models')
-  //       return
-  //     }
-  //     const json = await fetchedModels.json()
-  //     const apiModels = json.models.map((model: any) => model.name)
-  //     setModels([...apiModels])
-  //   }
-  //   fetchModels()
-  // }, [])
+  useEffect(() => {
+    //   const fetchModels = async () => {
+    //     const fetchedModels = await fetch('/api/tags')
+    //     if (!fetchedModels.ok) {
+    //       console.error('Failed to fetch models')
+    //       return
+    //     }
+    //     const json = await fetchedModels.json()
+    //     const apiModels = json.models.map((model: any) => model.name)
+    //     setModels([...apiModels])
+    //   }
+    //   fetchModels()
+    !selectedModel && setSelectedModel(process.env.NEXT_PUBLIC_OLLAMA_MODELS1)
+  }, [])
 
   const handleModelChange = (model: string) => {
     setSelectedModel(model)
@@ -74,7 +78,7 @@ export default function ChatTopbar({ isLoading, chatId, messages, setMessages }:
             aria-expanded={open}
             className='w-[300px] justify-between'
           >
-            {selectedModel || 'انتخاب پاسخگو'}
+            {(selectedModel?.includes('nemot') ? 'نموترون' : 'دیپسیک') || 'انتخاب پاسخگو'}
             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
           </Button>
         </PopoverTrigger>
@@ -89,12 +93,12 @@ export default function ChatTopbar({ isLoading, chatId, messages, setMessages }:
                   handleModelChange(model)
                 }}
               >
-                {model}
+                {model.includes('nemot') ? 'نموترون' : 'دیپسیک'}
               </Button>
             ))
           ) : (
             <Button variant='ghost' disabled className=' w-full'>
-              No models available
+              مدل پیدا نشد
             </Button>
           )}
         </PopoverContent>
