@@ -19,7 +19,7 @@ interface ChatTopbarProps {
 }
 
 export default function ChatTopbar({ isLoading, chatId, messages, setMessages }: ChatTopbarProps) {
-  const [models, setModels] = React.useState<string[]>(['deepseek-v3:671b', 'qwen2.5:72b-instruct-fp16'])
+  const [models, setModels] = React.useState<string[]>([process.env.NEXT_PUBLIC_OLLAMA_MODELS1,process.env.NEXT_PUBLIC_OLLAMA_MODELS2])
   const [open, setOpen] = React.useState(false)
   const [sheetOpen, setSheetOpen] = React.useState(false)
   const selectedModel = useChatStore(state => state.selectedModel)
