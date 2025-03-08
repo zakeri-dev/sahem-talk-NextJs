@@ -41,7 +41,7 @@ const IRANSansX = localFont({
 
 export const metadata: Metadata = {
   title: 'دانا',
-  description: 'محیط گفتگو با هوش مصنوعی'
+  description: 'همیار هوشمند شما'
 }
 
 export const viewport = {

@@ -26,7 +26,7 @@ export default function Home() {
         <ChatLayout key={id} id={id} initialMessages={[]} navCollapsedSize={10} defaultLayout={[30, 160]} />
         <DialogContent className='flex flex-col space-y-4'>
           <DialogHeader className='space-y-2'>
-            <DialogTitle>به ساهم تاک خوش امدید!</DialogTitle>
+            <DialogTitle>به دانا خوش امدید!</DialogTitle>
             <DialogDescription>نام خود را وارد کنید</DialogDescription>
             <UsernameForm setOpen={setOpen} />
           </DialogHeader>
