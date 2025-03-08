@@ -78,7 +78,11 @@ export default function ChatTopbar({ isLoading, chatId, messages, setMessages }:
             aria-expanded={open}
             className='w-[300px] justify-between'
           >
-            {(selectedModel?.includes('nemot') ? 'نموترون' : 'دیپسیک') || 'انتخاب پاسخگو'}
+            {(selectedModel &&
+              (selectedModel?.includes('nemot')
+                ? process.env.NEXT_PUBLIC_OLLAMA_MODELS1_FA
+                : process.env.NEXT_PUBLIC_OLLAMA_MODELS2_FA)) ||
+              'انتخاب پاسخگو'}
             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
           </Button>
         </PopoverTrigger>
@@ -93,7 +97,9 @@ export default function ChatTopbar({ isLoading, chatId, messages, setMessages }:
                   handleModelChange(model)
                 }}
               >
-                {model.includes('nemot') ? 'نموترون' : 'دیپسیک'}
+                {model.includes('nemot')
+                  ? process.env.NEXT_PUBLIC_OLLAMA_MODELS1_FA
+                  : process.env.NEXT_PUBLIC_OLLAMA_MODELS2_FA}
               </Button>
             ))
           ) : (
